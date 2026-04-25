@@ -1,20 +1,28 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../utils/features/user/userSlice";
 
 function Login() {
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const [emailId, setEmailId] = useState("vrindavan@gmail.com");
+  const [password, setPassword] = useState("Vrindavan@mohan123");
 
   const handleContinue = async () => {
-    const res = await axios.post(
-      import.meta.env.VITE_BASE_URL + "/login",
-      {
-        emailId: emailId,
-        password: password,
-      },
-      { withCredentials: true },
-    );
-    console.log(res);
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_BASE_URL + "/login",
+        {
+          emailId: emailId,
+          password: password,
+        },
+        { withCredentials: true },
+      );
+      console.log(res);
+      dispatch(addUser(res.data.data));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   return (
     <div className="card card-dash bg-base-300 w-screen mx-auto max-w-96 my-6">
@@ -25,6 +33,7 @@ function Login() {
           <input
             type="text"
             className="input"
+            value={emailId}
             placeholder="enter your email Id"
             onChange={(e) => setEmailId(e.target.value)}
           />
@@ -34,6 +43,7 @@ function Login() {
           <input
             type="text"
             className="input"
+            value={password}
             placeholder="enter the password"
             onChange={(e) => setPassword(e.target.value)}
           />
