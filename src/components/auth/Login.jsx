@@ -1,4 +1,21 @@
+import axios from "axios";
+import { useState } from "react";
+
 function Login() {
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleContinue = async () => {
+    const res = await axios.post(
+      import.meta.env.VITE_BASE_URL + "/login",
+      {
+        emailId: emailId,
+        password: password,
+      },
+      { withCredentials: true },
+    );
+    console.log(res);
+  };
   return (
     <div className="card card-dash bg-base-300 w-screen mx-auto max-w-96 my-6">
       <div className="card-body">
@@ -9,6 +26,7 @@ function Login() {
             type="text"
             className="input"
             placeholder="enter your email Id"
+            onChange={(e) => setEmailId(e.target.value)}
           />
         </fieldset>
         <fieldset className="fieldset">
@@ -17,10 +35,13 @@ function Login() {
             type="text"
             className="input"
             placeholder="enter the password"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </fieldset>
         <div className="card-actions justify-center mt-3">
-          <button className="btn btn-primary">Continue</button>
+          <button className="btn btn-primary" onClick={handleContinue}>
+            Continue
+          </button>
         </div>
       </div>
     </div>
