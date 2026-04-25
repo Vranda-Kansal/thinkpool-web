@@ -1,19 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import First from "./components/First";
-import Login from "./components/Login";
-import Test from "./components/Test";
+import Login from "./components/auth/Login";
+import DefaultComponent from "./components/DefaultComponent";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<First />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/test" element={<Test />} />
+          <Route path="/" element={<DefaultComponent />}>
+            <Route path="login" element={<Login />} />
           </Route>
         </Routes>
       </BrowserRouter>
-      <h1 class="text-3xl font-bold underline">Hello world!</h1>
     </>
   );
 }
