@@ -10,14 +10,14 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="bg-white/5 backdrop-blur-xs shadow-lg shadow-black/50 w-full max-w-96 mx-auto my-2 rounded-2xl">
+    <div className="bg-white/5 backdrop-blur-xs shadow-lg shadow-black/50 w-full max-w-2/5 mx-auto my-2 rounded-2xl text-white">
       <div className="p-4 px-7 flex flex-col gap-4">
         {/* Header */}
         <div className="flex flex-col items-center gap-0.5 mb-1">
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-xl font-semibold">
             {isLoginPage ? "Welcome" : "Create your account"}
           </h2>
-          <p className="text-xs text-slate-500 font-medium">
+          <p className="text-sm text-slate-500 font-medium">
             Join thousands of developers building together.
           </p>
         </div>
@@ -27,7 +27,7 @@ function Signup() {
           <div className="flex gap-2.5">
             {/* First Name */}
             <div className="flex flex-col gap-1 flex-1">
-              <label className="text-xs">First Name</label>
+              <label className="text-sm">First Name</label>
               <div className="flex items-center gap-1.5 border border-white/20 rounded-lg px-2.5 py-2 focus-within:border-white/50 transition-colors bg-white/5">
                 <svg
                   className="h-3.5 w-3.5 opacity-50 shrink-0"
@@ -49,14 +49,14 @@ function Signup() {
                   type="text"
                   required
                   placeholder="First name"
-                  className="bg-transparent outline-none w-full text-xs placeholder:text-white/30"
+                  className="bg-transparent outline-none w-full text-sm placeholder:text-white/30"
                 />
               </div>
             </div>
 
             {/* Last Name */}
             <div className="flex flex-col gap-1 flex-1">
-              <label className="text-xs">Last Name</label>
+              <label className="text-sm">Last Name</label>
               <div className="flex items-center gap-1.5 border border-white/20 rounded-lg px-2.5 py-2 focus-within:border-white/50 transition-colors bg-white/5">
                 <svg
                   className="h-3.5 w-3.5 opacity-50 shrink-0"
@@ -78,7 +78,7 @@ function Signup() {
                   type="text"
                   required
                   placeholder="Last name"
-                  className="bg-transparent outline-none w-full text-xs placeholder:text-white/30"
+                  className="bg-transparent outline-none w-full text-sm placeholder:text-white/30"
                 />
               </div>
             </div>
@@ -87,7 +87,7 @@ function Signup() {
 
         {/* Email */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs">Email Id</label>
+          <label className="text-sm">Email Id</label>
           <div className="flex items-center gap-1.5 border border-white/20 rounded-lg px-2.5 py-2 focus-within:border-white/50 transition-colors bg-white/5">
             <svg
               className="h-3.5 w-3.5 opacity-50 shrink-0"
@@ -109,14 +109,14 @@ function Signup() {
               type="email"
               required
               placeholder="Enter your email id"
-              className="bg-transparent outline-none w-full text-xs placeholder:text-white/30"
+              className="bg-transparent outline-none w-full text-sm placeholder:text-white/30"
             />
           </div>
         </div>
 
         {/* Password */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs">Password</label>
+          <label className="text-sm">Password</label>
           <div className="flex items-center gap-1.5 border border-white/20 rounded-lg px-2.5 py-2 focus-within:border-white/50 transition-colors bg-white/5">
             <svg
               className="h-3.5 w-3.5 opacity-50 shrink-0"
@@ -138,7 +138,7 @@ function Signup() {
               type={showPassword ? "text" : "password"}
               required
               placeholder="Enter your password"
-              className="bg-transparent outline-none w-full text-xs placeholder:text-white/30"
+              className="bg-transparent outline-none w-full text-sm placeholder:text-white/30"
             />
             <button
               type="button"
@@ -192,12 +192,12 @@ function Signup() {
         {/* Divider */}
         <div className="flex items-center gap-3">
           <div className="flex-1 h-px bg-white/20" />
-          <span className="text-xs text-white/40">or</span>
+          <span className="text-sm text-white/40">or</span>
           <div className="flex-1 h-px bg-white/20" />
         </div>
 
         {/* Login redirect */}
-        <p className="text-center text-xs text-slate-500">
+        <p className="text-center text-sm text-slate-500">
           {isLoginPage ? "No having an account?" : "Already have an account?"}{" "}
           <span
             className="text-pink-400 hover:text-pink-500 cursor-pointer font-medium"

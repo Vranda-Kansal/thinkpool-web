@@ -2,7 +2,7 @@ function Navbar() {
   return (
     <div className="navbar z-20 bg-white/5 backdrop-blur-xs shadow-lg shadow-black/50 sticky top-0">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl font-medium"> 👨‍🎓✨ThinkPool</a>
+        <a className="text-white text-xl font-medium ml-4"> 👨‍🎓✨ThinkPool</a>
       </div>
       <div className="dropdown dropdown-end">
         <div

@@ -16,7 +16,7 @@ function Home() {
             Explore. Think. Grow Together
           </p>
           <button
-            className="bg-pink-500 px-5 py-1 rounded-full font-medium text-lg hover:bg-pink-600 cursor-pointer"
+            className="bg-pink-500 px-5 py-1 rounded-full font-medium text-lg hover:bg-pink-600 cursor-pointer text-white"
             onClick={() => navigate("/signup", { replace: true })}
           >
             Create account
