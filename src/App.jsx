@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./utils/appStore";
 import Home from "./components/Home";
 import Signup from "./components/auth/Signup";
+import ProfileEdit from "./components/ProfileEdit";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="signup" element={<Signup />} />
                 <Route path="login" element={<Signup />} />
               </Route>
+              <Route path="/profile/edit" element={<ProfileEdit />} />
             </Route>
           </Routes>
         </BrowserRouter>
