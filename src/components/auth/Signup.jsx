@@ -4,6 +4,7 @@ import FormHeader from "../FormHeader";
 import NameInput from "../inputfields/NameInput";
 import EmailInput from "../inputfields/EmailInput";
 import PasswordInput from "../inputfields/PasswordInput";
+import UserIcon from "../icons/UserIcon";
 
 function Signup() {
   const location = useLocation();
@@ -19,8 +20,16 @@ function Signup() {
         {/* First Name + Last Name Row */}
         {!isLoginPage && (
           <div className="flex gap-2.5">
-            <NameInput fieldName="First Name" placeholder="First Name" />
-            <NameInput fieldName="Last Name" placeholder="Last Name" />
+            <NameInput
+              fieldName="First Name"
+              placeholder="First Name"
+              Icon={UserIcon}
+            />
+            <NameInput
+              fieldName="Last Name"
+              placeholder="Last Name"
+              Icon={UserIcon}
+            />
           </div>
         )}
 

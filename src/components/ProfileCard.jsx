@@ -1,3 +1,7 @@
+import ActionButton from "./ActionButton";
+import ConnectIcon from "./icons/ConnectIcon";
+import LinkedInIcon from "./icons/LinkedInIcon";
+
 function ProfileCard() {
   const skillColors = [
     "bg-[#1a2a1a] border border-green-700",
@@ -70,53 +74,29 @@ function ProfileCard() {
             </div>
           </div>
           <div className="flex gap-4 items-center my-5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              className="h-5 w-5 shrink-0"
-              fill="#0A66C2"
-            >
-              <path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.985V9h3.102v1.561h.043c.432-.818 1.49-1.681 3.065-1.681 3.278 0 3.882 2.157 3.882 4.961v6.611zM5.337 7.433a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zm1.552 13.019H3.785V9h3.104zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-            </svg>
+            <LinkedInIcon />
             <a className="underline cursor pointer hover:font-medium cursor-pointer">
               View Profile
             </a>
           </div>
         </div>
       </div>
-
       {/* Buttons outside card */}
       <div className="flex justify-center items-center gap-12 -mt-6">
-        {" "}
-        <div className="text-slate-50 flex flex-col gap-2 text-center items-center">
-          <button className="w-14 h-14 rounded-full bg-slate-50 text-black font-semibold text-2xl">
-            X
-          </button>
-          <span className="text-sm mb-4">May be Later</span>
-        </div>
-        <div className="text-violet-500 flex flex-col gap-2 text-center items-center">
-          <button className="w-14 h-14 rounded-full bg-violet-500 flex items-center justify-center">
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 15 15"
-              fill="currentColor"
-              stroke="white"
-              strokeWidth="1"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.9541 0.709802C14.93 0.761862 14.8965 0.810638 14.8536 0.853553L5.40076 10.3064L8.07126 14.7573C8.16786 14.9183 8.34653 15.0116 8.53386 14.9989C8.72119 14.9862 8.88561 14.8696 8.95958 14.697L14.9541 0.709802Z"
-                fill="currentColor"
-              />
-              <path
-                d="M4.69366 9.59931L0.242756 6.92876C0.0817496 6.83216 -0.0115621 6.65349 0.00115182 6.46616C0.0138657 6.27883 0.130462 6.11441 0.303045 6.04044L14.293 0.0447451C14.2399 0.0688812 14.1902 0.102782 14.1465 0.146447L4.69366 9.59931Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-          <span className="text-sm mb-4">Let's Connect</span>
-        </div>
+        {/* Skip */}
+        <ActionButton
+          label="May be Later"
+          bgColor="bg-slate-50 text-black font-semibold text-2xl"
+          textColor="text-slate-50"
+          Icon={"X"}
+        />
+        {/* Connect */}
+        <ActionButton
+          label="Let's Connect"
+          bgColor="bg-violet-500"
+          textColor="text-violet-500"
+          Icon={ConnectIcon}
+        />
       </div>
     </div>
   );
