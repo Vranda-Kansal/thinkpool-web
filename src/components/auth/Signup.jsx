@@ -1,9 +1,9 @@
 import { useLocation } from "react-router";
 import ToggleRedirect from "../ToggleRedirect";
-import NameInput from "../NameInput";
 import FormHeader from "../FormHeader";
-import PasswordInput from "../PasswordInput";
-import EmailInput from "../EmailInput";
+import NameInput from "../inputfields/NameInput";
+import EmailInput from "../inputfields/EmailInput";
+import PasswordInput from "../inputfields/PasswordInput";
 
 function Signup() {
   const location = useLocation();
