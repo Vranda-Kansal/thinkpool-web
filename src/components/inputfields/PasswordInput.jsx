@@ -5,12 +5,13 @@ function PasswordInput({
   placeholder = "Enter your password",
   readOnly = false,
   required = false,
+  ref,
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-sm">Password</label>
+      <label className="text-sm">Password*</label>
 
       <div
         className={`flex items-center gap-1.5 border rounded-lg px-2.5 py-2 transition-colors
@@ -34,6 +35,7 @@ function PasswordInput({
           readOnly={readOnly}
           value={readOnly ? value : undefined}
           placeholder={!readOnly ? placeholder : undefined}
+          ref={ref}
           className={`w-full bg-transparent outline-none text-sm
           ${
             readOnly

@@ -1,11 +1,19 @@
 import { useNavigate } from "react-router";
 import OrDivider from "./OrDivider";
 
-function ToggleRedirect({ isLoginPage }) {
+function ToggleRedirect({ isLoginPage, handleSignUp, errormessage }) {
   const navigate = useNavigate();
   return (
     <>
-      <button className="w-full py-2 rounded-lg bg-linear-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 font-semibold text-sm text-white transition-all cursor-pointer">
+      {errormessage && (
+        <p className="text-red-400 text-sm font-medium whitespace-pre-line">
+          {errormessage}
+        </p>
+      )}
+      <button
+        className="w-full py-2 rounded-lg bg-linear-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 font-semibold text-sm text-white transition-all cursor-pointer"
+        onClick={() => handleSignUp()}
+      >
         {isLoginPage ? "Continue" : "Sign Up"}
       </button>
       <OrDivider />

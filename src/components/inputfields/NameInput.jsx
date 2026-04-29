@@ -1,4 +1,4 @@
-function NameInput({ fieldName, placeholder, Icon }) {
+function NameInput({ fieldName, placeholder, Icon, ref }) {
   return (
     <div className="flex flex-col gap-1 flex-1">
       <label className="text-sm">{fieldName}</label>
@@ -8,6 +8,7 @@ function NameInput({ fieldName, placeholder, Icon }) {
           type="text"
           required
           placeholder={placeholder}
+          ref={ref}
           className="bg-transparent outline-none w-full text-sm placeholder:text-white/30"
         />
       </div>
