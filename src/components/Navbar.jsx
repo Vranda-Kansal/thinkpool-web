@@ -1,8 +1,30 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router";
+import { addUser } from "../utils/features/user/userSlice";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user);
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        import.meta.env.VITE_BASE_URL + "/logout",
+        {},
+        { withCredentials: true },
+      );
+      dispatch(addUser(null));
+      navigate("/login", { replace: true });
+    } catch (err) {
+      //TODO: show the error
+      if (err.response) {
+        console.log(err.response.data);
+      } else {
+        console.log(err.message || err);
+      }
+    }
+  };
   return (
     <div className="navbar z-20 bg-white/5 backdrop-blur-xs shadow-sm shadow-black/50 sticky top-0">
       <div className="flex-1">
@@ -39,7 +61,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/logout" className="justify-between">
+              <Link className="justify-between" onClick={handleLogout}>
                 logout
               </Link>
             </li>
