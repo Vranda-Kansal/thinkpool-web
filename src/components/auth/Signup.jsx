@@ -7,10 +7,14 @@ import PasswordInput from "../inputfields/PasswordInput";
 import UserIcon from "../icons/UserIcon";
 import { useRef, useState } from "react";
 import axios from "axios";
+import { addUser } from "../../utils/features/user/userSlice";
+import { useDispatch } from "react-redux";
 
 function Signup() {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const isLoginPage = location.pathname === "/login";
 
   const firstNameRef = useRef(null);
@@ -30,7 +34,7 @@ function Signup() {
       if (!firstName.trim() || !emailId.trim() || !password.trim()) {
         throw new Error("please fill required fields");
       }
-      await axios.post(
+      const user = await axios.post(
         import.meta.env.VITE_BASE_URL + "/signup",
         {
           firstName: firstName.trim(),
@@ -40,7 +44,42 @@ function Signup() {
         },
         { withCredentials: true },
       );
+      dispatch(addUser(user?.data?.data));
+      firstNameRef.current.value = "";
+      lastNameRef.current.value = "";
+      emailIdRef.current.value = "";
+      passwordRef.current.value = "";
       navigate("/profile/edit", { replace: true });
+      //TODO:
+      // dispatch(addToast(res?.data?.message));
+    } catch (err) {
+      if (err.response) {
+        setErrorMessage(err.response.data);
+      } else {
+        setErrorMessage(err.message || err);
+      }
+    }
+  };
+  const handleLogin = async () => {
+    try {
+      const emailId = emailIdRef.current.value || "";
+      const password = passwordRef.current.value || "";
+
+      if (!emailId.trim() || !password.trim()) {
+        throw new Error("please fill required fields");
+      }
+      const user = await axios.post(
+        import.meta.env.VITE_BASE_URL + "/login",
+        {
+          emailId: emailId.trim(),
+          password: password.trim(),
+        },
+        { withCredentials: true },
+      );
+      dispatch(addUser(user?.data?.data));
+      emailIdRef.current.value = "";
+      passwordRef.current.value = "";
+      navigate("/feed", { replace: true });
       //TODO:
       // dispatch(addToast(res?.data?.message));
     } catch (err) {
@@ -84,6 +123,7 @@ function Signup() {
         <ToggleRedirect
           isLoginPage={isLoginPage}
           handleSignUp={handleSignUp}
+          handleLogin={handleLogin}
           errormessage={errormessage}
         />
       </div>

@@ -1,16 +1,17 @@
-import { Outlet, replace, useNavigate } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import Navbar from "./Navbar";
 import { useEffect } from "react";
 import axios from "axios";
 import { addUser } from "../utils/features/user/userSlice";
-import { useDispatch } from "react-redux";
-import store from "../utils/appStore";
+import { useDispatch, useSelector } from "react-redux";
 
 function DefaultComponent() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const savedUser = useSelector((store) => store.user);
 
   async function getProfile() {
+    if (savedUser) return;
     try {
       const loggedInUser = await axios.get(
         import.meta.env.VITE_BASE_URL + "/profile/view",
