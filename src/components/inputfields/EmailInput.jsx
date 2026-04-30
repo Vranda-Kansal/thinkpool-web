@@ -1,7 +1,7 @@
 import EmailIcon from "../icons/EmailIcon";
 
 function EmailInput({
-  value,
+  defaultValue,
   placeholder = "Enter your email id",
   readOnly = false,
   required = false,
@@ -25,7 +25,7 @@ function EmailInput({
           type="email"
           required={required}
           readOnly={readOnly}
-          value={readOnly ? value : undefined}
+          defaultValue={readOnly ? defaultValue : undefined}
           placeholder={!readOnly ? placeholder : undefined}
           ref={ref}
           className={`w-full bg-transparent outline-none text-sm

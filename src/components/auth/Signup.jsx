@@ -105,12 +105,14 @@ function Signup() {
               placeholder="First Name"
               Icon={UserIcon}
               ref={firstNameRef}
+              maxLength={15}
             />
             <NameInput
               fieldName="Last Name"
               placeholder="Last Name"
               Icon={UserIcon}
               ref={lastNameRef}
+              maxLength={15}
             />
           </div>
         )}

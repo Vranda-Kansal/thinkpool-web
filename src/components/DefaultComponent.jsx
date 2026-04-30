@@ -18,6 +18,7 @@ function DefaultComponent() {
         { withCredentials: true },
       );
       dispatch(addUser(loggedInUser?.data?.data));
+      //TODO: if user login and go to any other route he redirect to the feed which is wrong
       navigate("/feed", { replace: true });
     } catch (err) {
       if (err.response) {

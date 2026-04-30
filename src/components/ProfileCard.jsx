@@ -1,8 +1,17 @@
+import { Link } from "react-router";
 import ActionButton from "./ActionButton";
 import ConnectIcon from "./icons/ConnectIcon";
 import LinkedInIcon from "./icons/LinkedInIcon";
 
-function ProfileCard() {
+function ProfileCard({
+  profilePic,
+  firstName,
+  lastName,
+  role,
+  linkedIn,
+  skills,
+  about,
+}) {
   const skillColors = [
     "bg-[#1a2a1a] border border-green-700",
     "bg-[#2a1a0a] border border-orange-700",
@@ -14,13 +23,21 @@ function ProfileCard() {
     <div>
       <div className="bg-white/5 inset-shadow-sm inset-shadow-pink-500/50 w-full min-w-2/5  my-2 rounded-2xl text-white">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          src={
+            profilePic
+              ? profilePic
+              : "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          }
           alt="Shoes"
-          className="rounded-2xl h-48 md:h-80 w-full object-cover"
+          className="rounded-2xl h-48 md:h-80 w-full"
         />
         <div className="p-6 px-7 flex flex-col gap-4">
           <div className="flex flex-col gap-1 items-center">
-            <h3 className="text-2xl font-bold text-white">Radha Rani</h3>
+            <h3 className="text-2xl font-bold text-white">
+              {firstName || lastName
+                ? `${firstName || ""} ${lastName || ""}`.trim()
+                : "Guest"}
+            </h3>
             <p className="text-yellow-500 font-bold flex gap-2 items-center text-sm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -38,46 +55,47 @@ function ProfileCard() {
                   <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
                 </g>
               </svg>
-              Full Stack Developer
+              {role ? role?.trim().toUpperCase() : "No role added"}
             </p>
           </div>
           <div className="flex flex-col gap-1 items-start">
             <h2 className="text-xl font-semibold text-sky-300">About</h2>
-            <article>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
-              itaque dolorum error, maiores distinctio illo deleniti quos ipsum,
-              alias placeat non. Accusantium, iure!
+            <article className="whitespace-pre-line">
+              {about ? about.trim() : "No bio available"}
             </article>
           </div>
           <div className="flex flex-col gap-2 items-start">
             <h2 className="text-xl font-semibold text-sky-300">Skills</h2>
 
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-2">
-              {[
-                "React",
-                "MongoDB",
-                "ExpressJs",
-                "NodeJS",
-                "Random",
-                "MongoDB",
-                "ExpressJs",
-                "NodeJS",
-                "Random",
-              ].map((skill, index) => (
-                <span
-                  key={index}
-                  className={`text-center w-full px-3 py-2 rounded-lg text-sm ${skillColors[index % 4]}`}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+            {skills?.length > 0 ? (
+              <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-2">
+                {skills?.map((skill, index) => (
+                  <span
+                    key={skill?.id}
+                    className={`text-center w-full px-3 py-2 rounded-lg text-sm ${skillColors[index % 4]}`}
+                  >
+                    {skill?.name}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              "No skills Listed"
+            )}
           </div>
           <div className="flex gap-4 items-center my-5">
             <LinkedInIcon />
-            <a className="underline cursor pointer hover:font-medium cursor-pointer">
-              View Profile
-            </a>
+            {linkedIn ? (
+              <Link
+                to={linkedIn && linkedIn}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline cursor pointer hover:font-medium cursor-pointer"
+              >
+                View Profile
+              </Link>
+            ) : (
+              "LinkedIn not provided"
+            )}
           </div>
         </div>
       </div>
