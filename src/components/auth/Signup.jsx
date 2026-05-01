@@ -79,7 +79,7 @@ function Signup() {
       dispatch(addUser(user?.data?.data));
       emailIdRef.current.value = "";
       passwordRef.current.value = "";
-      navigate("/feed", { replace: true });
+      navigate("/user/feed", { replace: true });
       //TODO:
       // dispatch(addToast(res?.data?.message));
     } catch (err) {

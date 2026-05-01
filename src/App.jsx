@@ -6,6 +6,9 @@ import Home from "./components/Home";
 import Signup from "./components/auth/Signup";
 import ProfileEdit from "./components/ProfileEdit";
 import Logout from "./components/auth/Logout";
+import Feed from "./components/Feed";
+import ConnectionRequest from "./components/ConnectionRequest";
+import FriendsList from "./components/FriendsList";
 
 function App() {
   return (
@@ -20,7 +23,9 @@ function App() {
               </Route>
               <Route path="profile/edit" element={<ProfileEdit />} />
               <Route path="logout" element={<Logout />} />
-              <Route path="feed" element={<Logout />} />
+              <Route path="user/feed" element={<Feed />} />
+              <Route path="received/requests" element={<ConnectionRequest />} />
+              <Route path="connections" element={<FriendsList />} />
             </Route>
           </Routes>
         </BrowserRouter>

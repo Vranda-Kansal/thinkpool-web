@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
-import { addUser } from "../utils/features/user/userSlice";
+import { removeUser } from "../utils/features/user/userSlice";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function Navbar() {
         {},
         { withCredentials: true },
       );
-      dispatch(addUser(null));
+      dispatch(removeUser());
       navigate("/login", { replace: true });
     } catch (err) {
       //TODO: show the error
@@ -51,13 +51,18 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/requests" className="justify-between">
-                Requests
+              <Link to="/user/feed" className="justify-between">
+                Feed
+              </Link>
+            </li>
+            <li>
+              <Link to="/received/requests" className="justify-between">
+                Friend Requests
               </Link>
             </li>
             <li>
               <Link to="/connections" className="justify-between">
-                Connections
+                My Connections
               </Link>
             </li>
             <li>

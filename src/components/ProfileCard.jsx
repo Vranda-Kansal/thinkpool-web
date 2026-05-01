@@ -11,6 +11,8 @@ function ProfileCard({
   linkedIn,
   skills,
   about,
+  handleSendReq,
+  toUserId,
 }) {
   const skillColors = [
     "bg-[#1a2a1a] border border-green-700",
@@ -107,6 +109,9 @@ function ProfileCard({
           bgColor="bg-slate-50 text-black font-semibold text-2xl"
           textColor="text-slate-50"
           Icon={"X"}
+          handleSendReq={handleSendReq}
+          toUserId={toUserId}
+          status="pass"
         />
         {/* Connect */}
         <ActionButton
@@ -114,6 +119,9 @@ function ProfileCard({
           bgColor="bg-violet-500"
           textColor="text-violet-500"
           Icon={ConnectIcon}
+          handleSendReq={handleSendReq}
+          toUserId={toUserId}
+          status="like"
         />
       </div>
     </div>
