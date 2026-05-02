@@ -52,12 +52,12 @@ function RequestCard({ user, cardId }) {
         {about?.length > 150 ? "..." : ""}
       </p>
       <div className="flex flex-wrap gap-1">
-        {skills?.slice(0, 5).map((skill, index) => (
+        {skills?.slice(0, 5).map((skill) => (
           <span
-            key={index}
+            key={skill._id}
             className="badge badge-dash border border-pink-600 text-pink-200"
           >
-            {skill}
+            {skill?.name}
           </span>
         ))}
       </div>

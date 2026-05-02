@@ -30,7 +30,6 @@ function Feed() {
   useEffect(() => {
     getFeed();
   }, []);
-  console.log(feedProfiles);
 
   const handleSendReq = async (status, toUserId) => {
     try {
