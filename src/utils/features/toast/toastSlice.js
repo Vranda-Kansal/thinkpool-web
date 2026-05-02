@@ -5,9 +5,15 @@ export const toastSlice = createSlice({
   initialState: [],
   reducers: {
     addToast: (state, action) => {
-      state.push(action.payload);
+      state.push({
+        message: action.payload.message,
+        type: action.payload.type,
+      });
+    },
+    removeToast: (state) => {
+      state.shift();
     },
   },
 });
-export const { addToast } = toastSlice.actions;
+export const { addToast, removeToast } = toastSlice.actions;
 export const toastReducer = toastSlice.reducer;

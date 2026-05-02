@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addUser } from "../utils/features/user/userSlice";
 import { useState } from "react";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 function ProfileEditForm({
   lastName,
@@ -82,8 +83,10 @@ function ProfileEditForm({
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
+        dispatch(addToast({ message: err.response.data, type: "error" }));
       } else {
         console.log(err.message || err);
+        dispatch(addToast({ message: err.message || err, type: "error" }));
       }
     }
   };
