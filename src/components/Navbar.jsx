@@ -67,7 +67,7 @@ function Navbar() {
             </li>
             <li>
               <Link className="justify-between" onClick={handleLogout}>
-                logout
+                Logout
               </Link>
             </li>
           </ul>
