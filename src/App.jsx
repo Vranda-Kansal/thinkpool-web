@@ -9,6 +9,7 @@ import Logout from "./components/auth/Logout";
 import Feed from "./components/Feed";
 import ConnectionRequest from "./components/ConnectionRequest";
 import FriendsList from "./components/FriendsList";
+import ChatPage from "./components/ChatPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="user/feed" element={<Feed />} />
               <Route path="received/requests" element={<ConnectionRequest />} />
               <Route path="connections" element={<FriendsList />} />
+              <Route path="chat/:toUserId" element={<ChatPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
