@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 export default function ChatPage() {
   const { toUserId } = useParams();
   const location = useLocation();
-  console.log(toUserId);
   const name = location.state?.name;
   const photo = location.state?.photo;
   const loggedInUser = useSelector((state) => state.user);
@@ -15,28 +15,90 @@ export default function ChatPage() {
   const socketRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [isOnline, setIsOnline] = useState(false);
+  const bottomRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  async function getChat() {
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_BASE_URL + "/getchat/" + toUserId,
+        {
+          withCredentials: true,
+        },
+      );
+      const conversationArr = res?.data?.data;
+
+      const customizeMsgArr = conversationArr?.map((message) => {
+        const { photoUrl, firstName, lastName, _id } = message.senderId;
+        const timestamp = new Date(message?.createdAt).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        return {
+          photoUrl: photoUrl,
+          senderName: `${firstName}${lastName ? " " + lastName : ""}`,
+          text: message?.text,
+          timestamp: timestamp,
+          whosendIt: _id,
+          messageId: message?._id,
+        };
+      });
+
+      setMessages(customizeMsgArr);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  useEffect(() => {
+    if (!toUserId) {
+      return;
+    }
+    getChat();
+  }, []);
 
   useEffect(() => {
     if (!userId || !toUserId) return;
     const socket = createSocketConnection();
     socketRef.current = socket;
-    console.log("socket", socketRef.current, socket);
+
+    socketRef.current.on("connect_error", (err) => {
+      console.log(err.message);
+      // ya toast/alert show karo
+    });
 
     socket.emit("joinChat", { userId, toUserId });
 
     socketRef.current.on(
       "messageReceived",
-      ({ senderName, profilePhoto, text, whosendIt, timestamp }) => {
-        console.log("recieved message", senderName, text, whosendIt);
+      ({
+        firstName,
+        lastName,
+        profilePhoto,
+        text,
+        timestamp,
+        whosendIt,
+        messageId,
+      }) => {
+        const formattedtimestamp = new Date(timestamp).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
         //store it and show to user
         setMessages((prev) => [
           ...prev,
           {
             photoUrl: profilePhoto,
-            senderName: senderName,
+            senderName: `${firstName}${lastName ? " " + lastName : ""}`,
             text: text,
-            whosendIt: whosendIt,
-            timestamp: timestamp,
+            timestamp: formattedtimestamp,
+            whosendIt,
+            messageId: messageId,
           },
         ]);
       },
@@ -50,30 +112,46 @@ export default function ChatPage() {
   }, [userId, toUserId]);
 
   const sendMessage = () => {
-    if (!userId || !toUserId) return;
-    console.log("sendMessage", socketRef.current);
-    const newMessage = messageRef.current.value;
-    const timestamp = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    try {
+      if (!userId || !toUserId) return;
+      const newMessage = messageRef.current.value;
 
-    socketRef.current.emit("sendMessage", {
-      senderName: loggedInUser?.firstName,
-      profilePhoto: loggedInUser?.photoUrl,
-      userId,
-      toUserId,
-      text: newMessage,
-      timestamp,
-    });
-    messageRef.current.value = null;
+      if (!newMessage || !newMessage?.trim()) {
+        throw new Error("please type some message");
+      }
+
+      socketRef.current.emit("sendMessage", {
+        userId,
+        toUserId,
+        newMessage,
+      });
+      messageRef.current.value = null;
+    } catch (err) {
+      console.log(err.message);
+    }
   };
-  console.log("messages", messages);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-[#0f0f13]">
       {/* ── HEADER (fixed, no scroll) ── */}
       <div className="flex items-center gap-3 px-4 py-3 bg-[#0d0d12] border-b border-white/5 shrink-0">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-white/40 hover:text-white/80 hover:font-semibold transition-colors shrink-0 cursor-pointer"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
         <img
           src={photo}
           alt={name || "Guest"}
@@ -89,10 +167,10 @@ export default function ChatPage() {
           </p>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3">
-        {messages?.map((message, index) => {
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 py-4 flex flex-col gap-3">
+        {messages?.map((message) => {
           return (
-            <div key={index}>
+            <div key={message.messageId}>
               {message?.whosendIt === loggedInUser?._id ? (
                 <div className="flex items-end justify-end gap-2">
                   <div className="max-w-[65%] flex flex-col items-end gap-1">
@@ -129,6 +207,7 @@ export default function ChatPage() {
             </div>
           );
         })}
+        <div ref={bottomRef} />
       </div>
       {/* ── MESSAGES (only this scrolls) ── */}
       {/* ── INPUT (fixed at bottom, no scroll) ── */}
@@ -137,6 +216,12 @@ export default function ChatPage() {
           <textarea
             ref={messageRef}
             rows={1}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+              }
+            }}
             placeholder="Type a message…"
             className="flex-1 bg-transparent outline-none resize-none text-sm text-white/80 placeholder-white/20 leading-relaxed max-h-28 py-0.5"
           />
