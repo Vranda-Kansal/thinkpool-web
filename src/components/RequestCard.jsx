@@ -1,6 +1,7 @@
 import axios from "axios";
 import { removeConnectionRequest } from "../utils/features/feed/connectionSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router";
 
 function RequestCard({ user, cardId }) {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function RequestCard({ user, cardId }) {
           </span>
         ))}
       </div>
-      {cardId && (
+      {cardId ? (
         <>
           <button
             className="btn btn-soft"
@@ -76,6 +77,30 @@ function RequestCard({ user, cardId }) {
             Accept
           </button>
         </>
+      ) : (
+        <Link
+          to={"/chat/" + user?._id}
+          state={{
+            name: user?.firstName + " " + user?.lastName,
+            photo: user?.photoUrl,
+          }}
+        >
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 3C6.48 3 2 6.94 2 11.5c0 2.21 1.16 4.21 3.06 5.7L4 21l4.11-2.06c1.17.32 2.42.49 3.89.49 5.52 0 10-3.94 10-8.5S17.52 3 12 3z"
+              fill="#ec4899"
+            />
+
+            <circle cx="9" cy="11.5" r="1.2" fill="white" />
+            <circle cx="12" cy="11.5" r="1.2" fill="white" />
+            <circle cx="15" cy="11.5" r="1.2" fill="white" />
+          </svg>
+        </Link>
       )}
     </li>
   );
