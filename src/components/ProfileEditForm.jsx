@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addUser } from "../utils/features/user/userSlice";
 import { useState } from "react";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 function ProfileEditForm({
   lastName,
@@ -79,10 +80,31 @@ function ProfileEditForm({
         { withCredentials: true },
       );
       dispatch(addUser(updatedUser?.data.data));
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: updatedUser?.data.message,
+          type: "success",
+        }),
+      );
     } catch (err) {
       if (err.response) {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.response,
+            type: "error",
+          }),
+        );
         console.log(err.response.data);
       } else {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.message,
+            type: "error",
+          }),
+        );
         console.log(err.message || err);
       }
     }

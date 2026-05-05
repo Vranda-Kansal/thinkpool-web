@@ -1,7 +1,10 @@
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 function SkillsSection({ skills, setSkills }) {
   const skillInputRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleRemoveSkill = (clickedSkillId) => {
     setSkills((prev) => prev.filter((skill) => skill.id !== clickedSkillId));
@@ -50,6 +53,13 @@ function SkillsSection({ skills, setSkills }) {
                   );
                   if (alreadyExists) {
                     //TODO: error message
+                    dispatch(
+                      addToast({
+                        id: crypto.randomUUID(),
+                        message: "skill already exits",
+                        type: "error",
+                      }),
+                    );
                     console.log("skill already exits");
                     return;
                   }

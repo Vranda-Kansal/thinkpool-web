@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import { addUser } from "../../utils/features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { addToast } from "../../utils/features/toast/toastSlice";
 
 function Signup() {
   const location = useLocation();
@@ -49,13 +50,34 @@ function Signup() {
       lastNameRef.current.value = "";
       emailIdRef.current.value = "";
       passwordRef.current.value = "";
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: user?.data?.message,
+          type: "success",
+        }),
+      );
       navigate("/profile/edit", { replace: true });
       //TODO:
       // dispatch(addToast(res?.data?.message));
     } catch (err) {
       if (err.response) {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.response.data,
+            type: "error",
+          }),
+        );
         setErrorMessage(err.response.data);
       } else {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.message,
+            type: "error",
+          }),
+        );
         setErrorMessage(err.message || err);
       }
     }
@@ -79,13 +101,32 @@ function Signup() {
       dispatch(addUser(user?.data?.data));
       emailIdRef.current.value = "";
       passwordRef.current.value = "";
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: user?.data?.message,
+          type: "success",
+        }),
+      );
       navigate("/user/feed", { replace: true });
-      //TODO:
-      // dispatch(addToast(res?.data?.message));
     } catch (err) {
       if (err.response) {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.response.data,
+            type: "error",
+          }),
+        );
         setErrorMessage(err.response.data);
       } else {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.message,
+            type: "error",
+          }),
+        );
         setErrorMessage(err.message || err);
       }
     }

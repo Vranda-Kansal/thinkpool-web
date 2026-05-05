@@ -7,7 +7,10 @@ export const toastSlice = createSlice({
     addToast: (state, action) => {
       state.push(action.payload);
     },
+    removeToast: (state, action) => {
+      return state.filter((t) => t.id !== action.payload);
+    },
   },
 });
-export const { addToast } = toastSlice.actions;
+export const { addToast, removeToast } = toastSlice.actions;
 export const toastReducer = toastSlice.reducer;

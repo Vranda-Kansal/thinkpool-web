@@ -1,13 +1,23 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 function PhotoUploadSection({ setSelectedFile, selectedFile, setProfilePic }) {
   const loggedInUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
       //TODO: show error message or toast
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: "only images allowed",
+          type: "error",
+        }),
+      );
       console.log("only images allowed");
       e.target.value = "";
       return;

@@ -6,6 +6,7 @@ import {
   addFeedProfiles,
   removeUserFromProfile,
 } from "../utils/features/feed/feedSlice";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 function Feed() {
   const feedProfiles = useSelector((state) => state.feed);
@@ -21,8 +22,22 @@ function Feed() {
       dispatch(addFeedProfiles(res?.data?.data));
     } catch (err) {
       if (err.response) {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.response.data,
+            type: "error",
+          }),
+        );
         console.log(err.response.data);
       } else {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.message || err,
+            type: "error",
+          }),
+        );
         console.log(err.message || err);
       }
     }
@@ -46,10 +61,31 @@ function Feed() {
       );
       dispatch(removeUserFromProfile(toUserId));
       console.log(isConnectionReqSend?.data?.message);
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: isConnectionReqSend?.data?.message,
+          type: "success",
+        }),
+      );
     } catch (err) {
       if (err.response) {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.response.data,
+            type: "error",
+          }),
+        );
         console.log(err.response.data.message);
       } else {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.message || err,
+            type: "error",
+          }),
+        );
         console.log(err.message || err);
       }
     }
@@ -57,8 +93,6 @@ function Feed() {
 
   return (
     <div>
-      {/* dim overlay */}
-      {/* <div className="absolute inset-0 bg-[url(/assests/feedbg.jpg)] bg-cover bg-center opacity-30 -z-10" /> */}
       <div className="w-full max-w-1/2 mx-auto">
         {feedProfiles?.length > 0 ? (
           <>
@@ -78,7 +112,14 @@ function Feed() {
             ))}
           </>
         ) : (
-          <div>all users already in friends! Later explore more</div>
+          <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center px-4">
+            <h2 className="text-pink-500/80 text-2xl font-semibold tracking-wide">
+              You're all caught up!
+            </h2>
+            <p className="text-white/40 text-sm max-w-xs">
+              No new developers to explore right now. Check back later!
+            </p>
+          </div>
         )}
       </div>
     </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { removeUser } from "../utils/features/user/userSlice";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -16,11 +17,32 @@ function Navbar() {
       );
       dispatch(removeUser());
       navigate("/login", { replace: true });
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: "Logout successful",
+          type: "success",
+        }),
+      );
     } catch (err) {
       //TODO: show the error
       if (err.response) {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.response.data,
+            type: "error",
+          }),
+        );
         console.log(err.response.data);
       } else {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.message,
+            type: "error",
+          }),
+        );
         console.log(err.message || err);
       }
     }
@@ -44,6 +66,7 @@ function Navbar() {
           <ul
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            onClick={() => document.activeElement.blur()}
           >
             <li>
               <Link to="/profile/edit" className="justify-between">
@@ -57,7 +80,7 @@ function Navbar() {
             </li>
             <li>
               <Link to="/received/requests" className="justify-between">
-                Friend Requests
+                Requests
               </Link>
             </li>
             <li>

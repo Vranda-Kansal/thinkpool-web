@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { addUser } from "../utils/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ToastMessage from "./ToastMessage";
 
 function DefaultComponent() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function DefaultComponent() {
   return (
     <div>
       <Navbar />
+      <ToastMessage />
       <Outlet />
     </div>
   );

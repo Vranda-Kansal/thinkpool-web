@@ -2,6 +2,7 @@ import axios from "axios";
 import { removeConnectionRequest } from "../utils/features/feed/connectionSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 function RequestCard({ user, cardId }) {
   const dispatch = useDispatch();
@@ -19,10 +20,31 @@ function RequestCard({ user, cardId }) {
         { withCredentials: true },
       );
       dispatch(removeConnectionRequest(removedConnection?.data?.data?._id));
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: removedConnection?.data.message,
+          type: "success",
+        }),
+      );
     } catch (err) {
       if (err.response) {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.response,
+            type: "error",
+          }),
+        );
         console.log(err.response.data);
       } else {
+        dispatch(
+          addToast({
+            id: crypto.randomUUID(),
+            message: err.message,
+            type: "error",
+          }),
+        );
         console.log(err.message || err);
       }
     }

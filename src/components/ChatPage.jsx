@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { createSocketConnection } from "../utils/socket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { addToast } from "../utils/features/toast/toastSlice";
 
 export default function ChatPage() {
   const { toUserId } = useParams();
@@ -10,6 +11,7 @@ export default function ChatPage() {
   const name = location.state?.name;
   const photo = location.state?.photo;
   const loggedInUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const userId = loggedInUser?._id;
   const messageRef = useRef(null);
   const socketRef = useRef(null);
@@ -51,6 +53,13 @@ export default function ChatPage() {
 
       setMessages(customizeMsgArr);
     } catch (err) {
+      dispatch(
+        addToast({
+          id: crypto.randomUUID(),
+          message: err.message,
+          type: "error",
+        }),
+      );
       console.log(err.message);
     }
   }
