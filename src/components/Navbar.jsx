@@ -15,6 +15,7 @@ function Navbar() {
         {},
         { withCredentials: true },
       );
+      localStorage.removeItem("token");
       dispatch(removeUser());
       navigate("/login", { replace: true });
       dispatch(

@@ -45,6 +45,7 @@ function Signup() {
         },
         { withCredentials: true },
       );
+      localStorage.setItem("token", user?.data?.token);
       dispatch(addUser(user?.data?.data));
       firstNameRef.current.value = "";
       lastNameRef.current.value = "";
@@ -98,6 +99,7 @@ function Signup() {
         },
         { withCredentials: true },
       );
+      localStorage.setItem("token", user?.data?.token);
       dispatch(addUser(user?.data?.data));
       emailIdRef.current.value = "";
       passwordRef.current.value = "";
