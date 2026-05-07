@@ -92,36 +92,34 @@ function Feed() {
   };
 
   return (
-    <div>
-      <div className="w-full max-w-1/2 mx-auto">
-        {feedProfiles?.length > 0 ? (
-          <>
-            {feedProfiles.map((user) => (
-              <ProfileCard
-                key={user._id}
-                profilePic={user?.photoUrl}
-                firstName={user?.firstName}
-                lastName={user?.lastName}
-                role={user?.role}
-                linkedIn={user?.linkedIn}
-                skills={user?.skills}
-                about={user?.about}
-                handleSendReq={handleSendReq}
-                toUserId={user._id}
-              />
-            ))}
-          </>
-        ) : (
-          <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center px-4">
-            <h2 className="text-pink-500/80 text-2xl font-semibold tracking-wide">
-              You're all caught up!
-            </h2>
-            <p className="text-white/40 text-sm max-w-xs">
-              No new developers to explore right now. Check back later!
-            </p>
-          </div>
-        )}
-      </div>
+    <div className="w-full max-w-sm sm:max-w-md lg:max-w-5xl mx-auto px-3 flex flex-col gap-6">
+      {feedProfiles?.length > 0 ? (
+        <>
+          {feedProfiles.map((user) => (
+            <ProfileCard
+              key={user._id}
+              profilePic={user?.photoUrl}
+              firstName={user?.firstName}
+              lastName={user?.lastName}
+              role={user?.role}
+              linkedIn={user?.linkedIn}
+              skills={user?.skills}
+              about={user?.about}
+              handleSendReq={handleSendReq}
+              toUserId={user._id}
+            />
+          ))}
+        </>
+      ) : (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center px-4">
+          <h2 className="text-pink-500/80 text-2xl font-semibold tracking-wide">
+            You're all caught up!
+          </h2>
+          <p className="text-white/40 text-sm max-w-xs">
+            No new developers to explore right now. Check back later!
+          </p>
+        </div>
+      )}
     </div>
   );
 }

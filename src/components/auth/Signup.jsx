@@ -135,7 +135,7 @@ function Signup() {
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-xs shadow-lg shadow-black/50 w-full max-w-2/5 mx-auto my-2 rounded-2xl text-white">
+    <div className="bg-white/5 backdrop-blur-xs shadow-lg shadow-black/50 w-[92%] sm:w-full sm:max-w-md mx-auto my-2 rounded-2xl text-white">
       <div className="p-4 px-7 flex flex-col gap-4">
         {/* Header */}
         <FormHeader isLoginPage={isLoginPage} />
