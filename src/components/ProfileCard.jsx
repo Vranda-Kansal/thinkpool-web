@@ -29,7 +29,7 @@ function ProfileCard({
             : "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
         }
         alt="Shoes"
-        className="rounded-2xl rounded-b-none lg:rounded-r-none lg:rounded-l-2xl h-40 lg:h-full w-full lg:w-[48%] shrink-0 object-cover object-[50%_30%]"
+        className="rounded-2xl rounded-b-none lg:rounded-r-none lg:rounded-l-2xl h-40 lg:h-full w-full lg:w-[48%] shrink-0"
       />
       {/* Fixed — never scrolls */}
       <div className="lg:w-[52%] lg:h-full lg:flex lg:flex-col">
@@ -104,7 +104,9 @@ function ProfileCard({
         <div className="flex rounded-b-2xl overflow-hidden border-t border-white/10 shrink-0">
           {/* Pass */}
           <button
-            onClick={() => handleSendReq("pass", toUserId)}
+            onClick={
+              handleSendReq ? () => handleSendReq("pass", toUserId) : undefined
+            }
             className="flex-1 h-14 flex items-center justify-center gap-2 cursor-pointer text-white/60 hover:bg-white/10 transition-colors"
           >
             <span className="text-xl">✕</span>
@@ -116,7 +118,9 @@ function ProfileCard({
 
           {/* Connect */}
           <button
-            onClick={() => handleSendReq("like", toUserId)}
+            onClick={
+              handleSendReq ? () => handleSendReq("like", toUserId) : undefined
+            }
             className="flex-1 h-14 flex items-center justify-center gap-2 bg-linear-to-r from-pink-400 to-violet-600 hover:from-pink-600 hover:to-violet-600 font-semibold text-sm text-white transition-all cursor-pointer"
           >
             <ConnectIcon />

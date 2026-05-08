@@ -112,7 +112,7 @@ function ProfileEditForm({
 
   return (
     <div className="bg-white/5 backdrop-blur-xs inset-shadow-sm inset-shadow-violet-500/50 w-full min-w-2/5  my-2 rounded-2xl text-white">
-      <div className="p-4 px-7 flex flex-col gap-4">
+      <div className="p-4 lg:p-5 flex flex-col gap-2 md:gap-4">
         {/* Email */}
         <EmailInput defaultValue={loggedInUser?.emailId} readOnly={true} />
         {/* First Name + Last Name Row */}

@@ -34,12 +34,26 @@ function PhotoUploadSection({ setSelectedFile, selectedFile, setProfilePic }) {
   }
 
   return (
-    <div className="flex flex-col gap-1">
-      <label className="text-sm">Profile Photo</label>
-
+    <div className="flex items-center justify-between gap-3">
+      <label className="text-sm lg:text-[16px] font-medium text-white/70 shrink-0">
+        Profile Photo
+      </label>
       <div className="flex items-center gap-2">
         {!selectedFile ? (
-          <label className="px-4 py-2 rounded-lg bg-pink-500 hover:bg-pink-600 border border-white/20 text-sm transition-colors cursor-pointer whitespace-nowrap">
+          <label className="flex items-center gap-1.5 px-3 py-1.5 lg:gap-2 lg:px-4 lg:py-2 rounded-full border border-pink-500/40 bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 text-xs lg:text-sm lg:font-bold font-semibold transition-all cursor-pointer whitespace-nowrap">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-3.5 w-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
             Upload Photo
             <input
               type="file"
@@ -49,16 +63,16 @@ function PhotoUploadSection({ setSelectedFile, selectedFile, setProfilePic }) {
             />
           </label>
         ) : (
-          <div className="flex items-center text-center gap-2 px-3 py-2 rounded-lg border-2 border-pink-600/60 text-sm">
-            <span className="truncate max-w-72 text-pink-200 font-medium">
+          <div className="flex items-center gap-2 px-3 py-1.5 lg:gap-2 lg:px-4 lg:py-2 rounded-full bg-white/5 border border-pink-500/30 text-xs lg:text-sm lg:font-bold  max-w-44">
+            <span className="truncate text-pink-200 font-medium">
               {selectedFile.name}
             </span>
             <button
               type="button"
               onClick={handleRemove}
-              className="text-white/60 cursor-pointer hover:font-semibold hover:text-white  leading-none"
+              className="shrink-0 text-white/40 hover:text-white transition-colors cursor-pointer"
             >
-              X
+              ✕
             </button>
           </div>
         )}

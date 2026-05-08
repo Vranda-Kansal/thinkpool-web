@@ -15,15 +15,18 @@ function ToastMessage() {
   }, [toasts]);
 
   return (
-    <div className="toast toast-top toast-end z-20">
+    <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
       {toasts.map((t) => (
         <div
           key={t.id}
-          className={`alert text-white text-lg py-1 ${
-            t.type === "error" ? "bg-red-600" : "bg-green-600"
-          }`}
+          className={`px-4 py-2.5 rounded-lg text-sm font-medium shadow-md
+        ${
+          t.type === "error"
+            ? "bg-red-950 border border-red-500/40 text-red-300"
+            : "bg-green-950 border border-green-500/40 text-green-300"
+        }`}
         >
-          <span>{t.message}</span>
+          {t.message}
         </div>
       ))}
     </div>

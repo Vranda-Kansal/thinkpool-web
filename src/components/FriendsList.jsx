@@ -55,7 +55,7 @@ function FriendsList() {
     );
 
   return (
-    <ul className="list m-8 bg-base-100 rounded-box shadow-md">
+    <ul className="list mx-4 my-6 bg-base-100 rounded-box p-2">
       {friendList?.map((friend) => (
         <RequestCard key={friend._id} user={friend} />
       ))}

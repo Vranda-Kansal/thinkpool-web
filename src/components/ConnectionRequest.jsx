@@ -52,7 +52,7 @@ function ConnectionRequest() {
       </div>
     );
   return (
-    <ul className="list m-8 bg-base-100 rounded-box shadow-md">
+    <ul className="list mx-4 my-6 bg-base-100 rounded-box p-2">
       {friendRequests?.map((eachReq) => (
         <RequestCard
           key={eachReq._id}
